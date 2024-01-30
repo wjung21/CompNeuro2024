@@ -11,27 +11,33 @@ spk_sample = spk_sample_raw['spk_sample']
 spk_test = spk_test_raw['spk_test']
 
 #create sample file to pandas dataframe format
-def get_sample_freq(sample_num, start_gap=0.1, window_size = 2):
-    df_deg_freq = pd.DataFrame(columns=['Time','Degree','Frequency'])
+def get_sample_freq(sample_num, start_gap=0.1, window_size = 2, mode = 'Frequency'):
+    assert mode in ['Frequency', 'Counts']
+    df_deg_freq = pd.DataFrame(columns=['Time','Degree',mode])
     sample = spk_sample[sample_num-1,0]
 
     i = 0
     for time, degree in stimulus:
         if (time >= 50) & (time <= 350):
-            frequency = len(sample[(sample > (time+start_gap)) & (sample <= (time + start_gap + window_size))]) / window_size
+            frequency = len(sample[(sample > (time+start_gap)) & (sample <= (time + start_gap + window_size))]) #/ window_size
+            if mode == 'Frequency':
+                frequency /= window_size
             df_deg_freq.loc[i,:] = [time, int(degree), frequency]
             i += 1
     return df_deg_freq
 
 #create sample file to pandas dataframe format 
-def get_test_freq(num, start_gap=0.1, window_size = 2):
-    df_deg_freq = pd.DataFrame(columns=['Time','Degree','Frequency'])
+def get_test_freq(num, start_gap=0.1, window_size = 2, mode = 'Frequency'):
+    assert mode in ['Frequency', 'Counts']
+    df_deg_freq = pd.DataFrame(columns=['Time','Degree',mode])
     sample = spk_test[num-1,0]
 
     i = 0
     for time, degree in stimulus:
         if (time >= 400) & (time <= 700):
-            frequency = len(sample[(sample > (time+start_gap)) & (sample <= (time + start_gap + window_size))]) / window_size
+            frequency = len(sample[(sample > (time+start_gap)) & (sample <= (time + start_gap + window_size))])
+            if mode == 'Frequency':
+                frequency /= window_size #/ window_size
             df_deg_freq.loc[i,:] = [time, int(degree), frequency]
             i += 1
     return df_deg_freq
