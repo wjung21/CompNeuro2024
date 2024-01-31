@@ -162,10 +162,11 @@ cython_debug/
 # Project specific
 notebook_*.ipynb
 .DS_Store
-sample/
-test/
+
 sample_Counts/
 test_Counts/
 sample_Frequency/
 test_Frequency/
 Figures/
+*.mat
+*.csv
