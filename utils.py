@@ -42,30 +42,6 @@ def get_test_freq(num, start_gap=0.1, window_size = 2, mode = 'Frequency'):
             i += 1
     return df_deg_freq
 
-def get_freq_Fourier(num, type = 'Neuron'):
-    df_freq = pd.DataFrame(columns = ['Time','Degree','Frequency'])
-    if type == 'Neuron':
-        sample = spk_sample[num-1,0]
-        start, end = 50, 350
-    elif type == 'Case':
-        sample = spk_test[num-1,0]
-        start, end = 400, 700
-    i = 0
-    for time, degree in stimulus: 
-        freq_list = []
-        if (time >= start) & (time <= end):
-            for window_start in np.arange(0,4,0.01):
-                freq = len(sample[(sample >= (time + window_start)) & (sample < (time + window_start + 1))])
-                freq_list.append(freq)
-        
-
-
-
-
-
-
-
-
 def get_stimulus():
     degree_dict = dict()
     for degree in np.unique(stimulus[:,1]):
