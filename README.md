@@ -6,6 +6,8 @@
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
+
+cp path/to/matdata .
 ```
 
 모든 업데이트 진행 완료되었습니다.
